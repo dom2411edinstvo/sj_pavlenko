@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Натали Павленко — Интеллект-тренер Super Jump</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #a07830;
+    --deep: #0d0d1a;
+    --dark: #12121f;
+    --dark2: #1a1a2e;
+    --dark3: #16213e;
+    --purple: #2d1b69;
+    --purple2: #4a2c8a;
+    --text: #e8e8f0;
+    --text-muted: #9090b0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+  /* PARTICLES */
+  #particles-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+  /* NAVBAR */
+  #navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 40px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(13,13,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    transition: all 0.3s;
+  }
+  #navbar.scrolled {
+    background: rgba(13,13,26,0.97);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--deep);
+    letter-spacing: -1px;
+  }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .nav-logo-text span:first-child {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .nav-logo-text span:last-child {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--deep) !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 700 !important;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201,168,76,0.4) !important;
+    color: var(--deep) !important;
+  }
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .burger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px; left: 0; right: 0;
+    background: rgba(13,13,26,0.98);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    z-index: 999;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    letter-spacing: 1px;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  /* GOLD TEXT */
+  .gold { color: var(--gold); }
+  .gold-grad {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* SECTION BADGE */
+  .section-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 25px;
+    margin-bottom: 20px;
+  }
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  /* BTN */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    color: var(--deep);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(201,168,76,0.5);
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    padding: 13px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    background: rgba(201,168,76,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(201,168,76,0.25);
+  }
+  /* DIVIDER */
+  .gold-divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+    border-radius: 3px;
+    margin: 0 auto 30px;
+  }
+  /* GLASS CARD */
+  .glass {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+  }
+  .glass-gold {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 20px;
+  }
+  /* SECTION WRAPPER */
+  .section-wrap {
+    position: relative;
+    z-index: 1;
+    padding: 100px 0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* ============ HERO ============ */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    padding-top: 70px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(45,27,105,0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 50%),
+                var(--deep);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    border-radius: 25px;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 20px;
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+  .hero-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .hero-feat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .hero-feat-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-photo-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+  }
+  .hero-photo-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  .hero-photo-frame {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.3);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(201,168,76,0.1);
+  }
+  .hero-photo-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .hero-photo-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(13,13,26,0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-photo-badge-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .hero-photo-badge-text span:first-child {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--gold);
+  }
+  .hero-photo-badge-text span:last-child {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  @media (max-width: 768px) {
+    #navbar { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-desktop-cta { display: none; }
+    .burger { display: flex; }
+    #hero { align-items: flex-start; padding-top: 70px; min-height: 100vh; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 0;
+      min-height: calc(100vh - 70px);
+      padding: 16px 16px 0;
+      align-items: stretch;
+    }
+    .hero-right { order: -1; }
+    .hero-left { order: 1; padding-bottom: 20px; }
+    .hero-photo-wrap { max-width: 100%; }
+    .hero-photo-frame img { max-height: 45vh; object-fit: cover; object-position: top; }
+    .hero-badge { font-size: 10px; letter-spacing: 2px; }
+    .hero-subtitle { font-size: 14px; }
+    .hero-features { display: none; }
+    .hero-btns { flex-direction: column; gap: 10px; }
+    .btn-primary, .btn-outline { justify-content: center; width: 100%; }
+    .hero-title { font-size: clamp(26px, 7vw, 36px); margin-top: 16px; }
+  }
+  /* ============ VIDEO ============ */
+  #video-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 0;
+    background: linear-gradient(180deg, var(--deep) 0%, var(--dark2) 100%);
+  }
+  .video-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .video-frame {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.25);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.1);
+    aspect-ratio: 9/16;
+    max-height: 600px;
+    margin: 0 auto;
+  }
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  /* ============ ABOUT ============ */
+  #about {
+    background: linear-gradient(180deg, var(--dark2) 0%, var(--dark) 100%);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .about-text p strong { color: var(--gold); }
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .about-highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+  .about-highlight-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .about-highlight-text h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .about-highlight-text p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .about-photo-col {
+    position: sticky;
+    top: 90px;
+  }
+  .about-photo-frame {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .about-photo-frame img {
+    width: 100%;
+    display: block;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .about-stat {
+    text-align: center;
+    padding: 16px 10px;
+    border-radius: 14px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .about-stat span:first-child {
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .about-stat span:last-child {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 30px; }
+    .about-photo-col { position: static; }
+    .about-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  /* ============ RESULTS ============ */
+  #results {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--deep) 100%);
+  }
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .result-card {
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .result-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.2);
+    transform: translateY(-3px);
+  }
+  .result-card-icon { font-size: 28px; margin-bottom: 10px; }
+  .result-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .result-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 900px) { .results-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .results-grid { grid-template-columns: 1fr; } }
+  /* ============ CERTS ============ */
+  #certs {
+    background: var(--deep);
+  }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .cert-card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.15);
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--dark2);
+  }
+  .cert-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201,168,76,0.4);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(201,168,76,0.1);
+  }
+  .cert-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .cert-card:hover img { transform: scale(1.03); }
+  .cert-label {
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    font-weight: 500;
+  }
+  @media (max-width: 900px) { .certs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) {
+    .certs-grid { grid-template-columns: 1fr; }
+    .cert-card img { height: 200px; }
+  }
+  /* ============ LIGHTBOX WITH SLIDER ============ */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-img-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 82vh;
+    border-radius: 12px;
+    object-fit: contain;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: block;
+    transition: opacity 0.25s;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    color: white;
+    font-size: 36px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 9010;
+  }
+  .lightbox-close:hover { color: var(--gold); }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(201,168,76,0.15);
+    border: 1.5px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 9010;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .lightbox-arrow:hover {
+    background: rgba(201,168,76,0.35);
+    box-shadow: 0 0 16px rgba(201,168,76,0.3);
+  }
+  .lightbox-arrow-left { left: -64px; }
+  .lightbox-arrow-right { right: -64px; }
+  .lightbox-counter {
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .lightbox-arrow-left { left: 4px; }
+    .lightbox-arrow-right { right: 4px; }
+    .lightbox img { max-height: 75vh; }
+  }
+  /* ============ QUIZ ============ */
+  #quiz {
+    background: linear-gradient(180deg, var(--deep) 0%, var(--dark3) 100%);
+  }
+  .quiz-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .quiz-card {
+    border-radius: 24px;
+    padding: 40px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-dark));
+  }
+  .quiz-progress-bar-wrap {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .quiz-q-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .quiz-q-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: all 0.25s;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .quiz-option:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.3);
+    color: var(--text);
+  }
+  .quiz-option.selected {
+    background: rgba(201,168,76,0.12);
+    border-color: rgba(201,168,76,0.5);
+    color: var(--gold-light);
+  }
+  .quiz-option-emoji { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 12px;
+  }
+  .quiz-btn-back {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .quiz-btn-back:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+  .quiz-loader {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+  }
+  .quiz-loader-ring {
+    width: 60px; height: 60px;
+    border: 4px solid rgba(201,168,76,0.15);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .quiz-result { display: none; text-align: center; }
+  .quiz-result-score {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .quiz-result-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+  .quiz-result-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .quiz-result-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 600px) {
+    .quiz-card { padding: 24px 18px; }
+    .quiz-q-text { font-size: 17px; }
+  }
+  /* ============ EXERCISES ============ */
+  #exercises {
+    background: var(--dark);
+  }
+  .exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .ex-card {
+    cursor: pointer;
+    height: 300px;
+    perspective: 1000px;
+    position: relative;
+  }
+  .ex-card-inner {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    border-radius: 20px;
+  }
+  .ex-card.flipped .ex-card-inner { transform: rotateY(180deg); }
+  .ex-front, .ex-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    overflow: hidden;
+  }
+  .ex-front {
+    background: linear-gradient(180deg, var(--dark3) 0%, rgba(13,13,26,0.95) 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .ex-front::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    border-radius: 3px 3px 0 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .ex-card:hover .ex-front::before { opacity: 1; }
+  .ex-back {
+    background: linear-gradient(135deg, rgba(45,27,105,0.9) 0%, rgba(13,13,26,0.98) 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+  .ex-num {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(201,168,76,0.4);
+    letter-spacing: 2px;
+  }
+  .ex-emoji {
+    font-size: 36px;
+    margin-bottom: 12px;
+    position: absolute;
+    top: 20px; left: 24px;
+  }
+  .ex-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .ex-sub {
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .ex-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+  }
+  .ex-back h4 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .ex-back p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .ex-back ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ex-back ul li {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding-left: 14px;
+    position: relative;
+  }
+  .ex-back ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .ex-back-hint {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 900px) { .exercises-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .exercises-grid { grid-template-columns: 1fr; } .ex-card { height: 260px; } }
+  /* ============ GALLERY ============ */
+  #gallery {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .gallery-item {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+    aspect-ratio: 3/4;
+  }
+  .gallery-item:first-child {
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 16/9;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+  }
+  .gallery-item:hover { border-color: rgba(201,168,76,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery-overlay span { font-size: 28px; }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  @media (max-width: 768px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .gallery-item:first-child { grid-column: span 2; }
+  }
+  @media (max-width: 480px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item:first-child { grid-column: span 1; }
+  }
+  /* ============ REVIEWS ============ */
+  #reviews {
+    background: var(--deep);
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .review-card {
+    padding: 28px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .review-card:hover {
+    background: rgba(201,168,76,0.04);
+    border-color: rgba(201,168,76,0.15);
+    transform: translateY(-4px);
+  }
+  .review-stars {
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .review-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    flex: 1;
+    font-style: italic;
+  }
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .review-author-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--gold-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .review-author-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .review-author-role {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .reviews-grid { grid-template-columns: 1fr; } }
+  /* ============ BOOK ============ */
+  #book {
+    background: linear-gradient(135deg, var(--dark3) 0%, var(--dark2) 50%, var(--deep) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  #book::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .book-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .book-cover {
+    width: 200px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: -8px 8px 30px rgba(0,0,0,0.5), 8px 0 0 rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.25);
+    background: linear-gradient(135deg, #1a1a2e, #2d1b69);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .book-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .book-cover-placeholder {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .book-cover-placeholder .book-emoji { font-size: 48px; display: block; margin-bottom: 12px; }
+  .book-cover-placeholder .book-title-small {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.4;
+  }
+  .book-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .book-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .book-list li span:first-child { flex-shrink: 0; }
+  @media (max-width: 768px) {
+    .book-inner { grid-template-columns: 1fr; gap: 30px; }
+    .book-cover { width: 150px; margin: 0 auto; min-height: 210px; }
+  }
+  /* ============ LINKS ============ */
+  #links {
+    background: var(--dark2);
+  }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    text-decoration: none;
+    transition: all 0.3s;
+    gap: 10px;
+  }
+  .link-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .link-card-icon { font-size: 32px; }
+  .link-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .link-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 700px) { .links-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .links-grid { grid-template-columns: 1fr; } }
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    z-index: 1;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px 30px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-top: 14px;
+    max-width: 300px;
+  }
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-col ul li a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-bottom p {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  @media (max-width: 768px) {
+    .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+  /* SCROLL TOP */
+  #scrollTop {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--deep);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+  }
+  #scrollTop.visible { opacity: 1; transform: translateY(0); }
+  #scrollTop:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(201,168,76,0.5); }
+</style>
+</head>
+<body>
+<canvas id="particles-canvas"></canvas>
+
+<!-- LIGHTBOX WITH SLIDER -->
+<div class="lightbox" id="lightbox" onclick="lightboxBgClick(event)">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <div class="lightbox-img-wrap">
+    <div class="lightbox-arrow lightbox-arrow-left" onclick="lightboxPrev()">&#8249;</div>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-arrow lightbox-arrow-right" onclick="lightboxNext()">&#8250;</div>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">SJ</div>
+    <div class="nav-logo-text">
+      <span>Super Jump</span>
+      <span>Натали Павленко</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">О себе</a></li>
+    <li><a href="#certs">Сертификаты</a></li>
+    <li><a href="#quiz">Тест</a></li>
+    <li><a href="#exercises">Упражнения</a></li>
+    <li><a href="#gallery">Галерея</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="https://vk.com/pahlova" target="_blank" rel="noopener" class="nav-cta">Записаться</a></li>
+  </ul>
+  <div class="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMenu()">О себе</a>
+  <a href="#certs" onclick="closeMenu()">Сертификаты</a>
+  <a href="#quiz" onclick="closeMenu()">Тест энергии</a>
+  <a href="#exercises" onclick="closeMenu()">8 Упражнений</a>
+  <a href="#gallery" onclick="closeMenu()">Фотогалерея</a>
+  <a href="#reviews" onclick="closeMenu()">Отзывы</a>
+  <a href="https://vk.com/pahlova" target="_blank" rel="noopener" onclick="closeMenu()" style="color:var(--gold);font-weight:700;">Записаться</a>
+</div>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">✨ Интеллект-тренер · Лидер Super Jump</div>
+      <h1 class="hero-title">
+        Тренер<br>
+        по <span class="gold-grad">счастью</span><br>
+        <span class="gold">Натали Павленко</span>
+      </h1>
+      <p class="hero-subtitle">
+        Помогаю перезагрузить мышление, освободиться от боли прошлого и настроить жизнь на волну любви, счастья и процветания. Онлайн — из любой точки мира.
+      </p>
+      <div class="hero-features">
+        <div class="hero-feat"><div class="hero-feat-dot"></div><span>Интеллектуальные тренировки для трансформации жизни</span></div>
+        <div class="hero-feat"><div class="hero-feat-dot"></div><span>Художник — картины маслом, заряженные позитивной энергией</span></div>
+        <div class="hero-feat"><div class="hero-feat-dot"></div><span>Работа с эмоциональным состоянием и мышлением</span></div>
+        <div class="hero-feat"><div class="hero-feat-dot"></div><span>Личное сопровождение и поддержка на каждом шагу</span></div>
+        <div class="hero-feat"><div class="hero-feat-dot"></div><span>Из любой точки мира — онлайн</span></div>
+      </div>
+      <div class="hero-btns">
+        <a href="https://vk.com/pahlova" target="_blank" rel="noopener" class="btn-primary">🌟 Записаться на консультацию</a>
+        <a href="#about" class="btn-outline">Узнать больше</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-glow"></div>
+        <div class="hero-photo-frame">
+          <img src="img/1.jpg" alt="Натали Павленко — интеллект-тренер Super Jump" onerror="this.style.background='linear-gradient(135deg,#2d1b69,#1a1a2e)'; this.style.minHeight='400px';">
+          <div class="hero-photo-badge">
+            <div class="hero-photo-badge-icon">💫</div>
+            <div class="hero-photo-badge-text">
+              <span>Натали Павленко</span>
+              <span>Лидер Super Jump · Художник</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="video-section">
+  <div class="video-wrap">
+    <div class="section-header fade-in">
+      <div class="section-badge">🎬 Видео от Натали</div>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="video-frame fade-in">
+      <iframe
+        src="https://rutube.ru/play/embed/285281730209c8e6bd6d252567e2018a/"
+        frameborder="0"
+        allow="clipboard-write; autoplay"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="about" class="section-wrap">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <div class="section-badge">О себе</div>
+        <h2 class="section-title">История <span class="gold-grad">трансформации</span></h2>
+        <div class="gold-divider" style="margin:0 0 24px;"></div>
+        <p>Здравствуйте. Меня зовут <strong>Натали Павленко</strong>. Я художник и интеллект-тренер. А если говорить проще — я тренер по счастью.</p>
+        <p>Сегодня уже не секрет, что наши слова и мысли материальны. Они — тот самый фундамент, на котором строится наша реальность. Но что делать, если этот фундамент дал трещину? Если боль, обида и разочарование стали вашим привычным состоянием? Как перезагрузить эту систему и настроить её на волну счастья, любви и процветания?</p>
+        <p>Я не задаю эти вопросы как теоретик. Я задаю их как человек, который сам прошёл через всё это.</p>
+        <p>Были в моей жизни и потери самых близких людей, и развод, и глубокая, всепоглощающая депрессия. Я знаю, что такое лежать ночью без сна и чувствовать, как тяжёлые мысли о бессмысленности существования смывают всё на своём пути. Я была в самой глубине, на том дне, где кажется, что свет погас навсегда.</p>
+        <p>И именно поэтому мне так понятны ваши чувства. Ваша боль, ваше отчаяние или просто та серая усталость, которая не отпускает. <strong>Я была там.</strong></p>
+        <p>Но я нашла в себе силы не просто выкарабкаться, а пройти полную трансформацию. Я превратила свой тяжёлый опыт в уникальную методику — интеллектуальные тренировки по укреплению эмоционального состояния.</p>
+        <p>Это практическая система, которая позволяет перепрограммировать мышление. Мы вместе учимся управлять своим внутренним миром, чтобы ваш внешний мир начал отражать не проблемы, а счастье. Эта методика — как ключ, который наполняет жизнь той самой <strong>Энергией Любви, Света и Процветания</strong>, о которой все мечтают, но не все знают, как к ней прийти.</p>
+        <p>Моя миссия не ограничивается коучингом. Она находит выход в другом моём языке — языке искусства. Я пишу картины маслом. В каждом мазке, в каждом движении кисти — моё пожелание счастья тому, кто будет на эту картину смотреть.</p>
+        <p>Сегодня я — тренер по счастью. И я с абсолютной уверенностью заявляю: <strong>выход есть всегда</strong>. Он начинается с вашего решения. Я, Натали Павленко, готова быть полезной и делиться с вами Энергией Любви и Счастья.</p>
+        <div class="about-highlights">
+          <div class="about-highlight">
+            <div class="about-highlight-icon">🎨</div>
+            <div class="about-highlight-text">
+              <h4>Художник</h4>
+              <p>Пишу картины маслом — каждое полотно несёт в себе позитивную энергию и является материализованным пожеланием счастья</p>
+            </div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-icon">🧠</div>
+            <div class="about-highlight-text">
+              <h4>Интеллект-тренер Super Jump</h4>
+              <p>Провожу интеллектуальные тренировки, которые помогают перепрограммировать мышление и создать состояние счастья</p>
+            </div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-icon">💜</div>
+            <div class="about-highlight-text">
+              <h4>Личный опыт трансформации</h4>
+              <p>Прошла путь от глубокой депрессии к полному расцвету — и превратила этот опыт в рабочую методику помощи другим</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-photo-col fade-in">
+        <div class="about-photo-frame">
+          <img src="img/2.jpg" alt="Натали Павленко" onerror="this.style.background='linear-gradient(135deg,#2d1b69,#1a1a2e)'; this.style.minHeight='350px'; this.alt='';">
+        </div>
+        <div class="about-stats">
+          <div class="about-stat"><span>💫</span><span>Лидер Super Jump</span></div>
+          <div class="about-stat"><span>🌍</span><span>Онлайн весь мир</span></div>
+          <div class="about-stat"><span>🎨</span><span>Художник</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESULTS ========== -->
+<section id="results" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Результаты</div>
+      <h2 class="section-title">Что изменится <span class="gold-grad">в вашей жизни</span></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="results-grid">
+      <div class="result-card fade-in"><div class="result-card-icon">⚡</div><div class="result-card-title">Повышение энергии и активности</div><div class="result-card-desc">Уходит хроническая усталость, появляется устойчивый заряд жизненных сил</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">😊</div><div class="result-card-title">Улучшение настроения</div><div class="result-card-desc">Эмоциональный фон выравнивается, тревожность снижается, жизнь воспринимается легче</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">🌅</div><div class="result-card-title">Выход из депрессии</div><div class="result-card-desc">Глубинная работа с мышлением помогает выбраться из состояния апатии и безысходности</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">❤️</div><div class="result-card-title">Улучшение отношений</div><div class="result-card-desc">Качество коммуникаций растёт — с близкими становится теплее и гармоничнее</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">💪</div><div class="result-card-title">Улучшение здоровья</div><div class="result-card-desc">Уходят психосоматические симптомы, улучшается общее самочувствие</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">🚀</div><div class="result-card-title">Рост в работе и бизнесе</div><div class="result-card-desc">Концентрация, продуктивность и качество решений выходят на новый уровень</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">🧠</div><div class="result-card-title">Повышение интеллекта</div><div class="result-card-desc">Мышление становится яснее, обучаемость возрастает, знания усваиваются быстрее</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">🌟</div><div class="result-card-title">Повышение самооценки</div><div class="result-card-desc">Внутренняя уверенность укрепляется — без самокритики и сравнения с другими</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">☀️</div><div class="result-card-title">Состояние счастья в моменте</div><div class="result-card-desc">Умение создавать радость здесь и сейчас, независимо от внешних обстоятельств</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">☯️</div><div class="result-card-title">Обретение гармонии</div><div class="result-card-desc">Внутренние конфликты разрешаются, приходит целостность и мир с собой</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">💫</div><div class="result-card-title">Привлечение изобилия</div><div class="result-card-desc">Мышление изобилия открывает новые возможности в финансах и реализации</div></div>
+      <div class="result-card fade-in"><div class="result-card-icon">🏆</div><div class="result-card-title">Стать лучшей версией себя</div><div class="result-card-desc">Сегодня лучше, чем вчера — принцип, который становится образом жизни</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CERTS ========== -->
+<section id="certs" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Документы</div>
+      <h2 class="section-title">Сертификаты и <span class="gold-grad">дипломы</span></h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--text-muted);font-size:14px;">Нажмите на сертификат, чтобы просмотреть и пролистать</p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card fade-in" onclick="openSlider('certs', 0)">
+        <img src="img/cert-1.jpg" alt="Сертификат 1" onerror="this.style.display='none'; this.parentElement.style.minHeight='200px'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
+        <div class="cert-label">Сертификат интеллект-тренера Super Jump</div>
+      </div>
+      <div class="cert-card fade-in" onclick="openSlider('certs', 1)">
+        <img src="img/cert-2.jpg" alt="Сертификат 2" onerror="this.style.display='none';">
+        <div class="cert-label">Диплом о профессиональной подготовке</div>
+      </div>
+      <div class="cert-card fade-in" onclick="openSlider('certs', 2)">
+        <img src="img/cert-3.jpg" alt="Сертификат 3" onerror="this.style.display='none';">
+        <div class="cert-label">Лидер Super Jump</div>
+      </div>
+      <div class="cert-card fade-in" onclick="openSlider('certs', 3)">
+        <img src="img/cert-4.jpg" alt="Сертификат 4" onerror="this.style.display='none';">
+        <div class="cert-label">Повышение квалификации</div>
+      </div>
+      <div class="cert-card fade-in" onclick="openSlider('certs', 4)">
+        <img src="img/cert-5.jpg" alt="Сертификат 5" onerror="this.style.display='none';">
+        <div class="cert-label">Профессиональное мастерство</div>
+      </div>
+      <div class="cert-card fade-in" onclick="openSlider('certs', 5)">
+        <img src="img/cert-6.jpg" alt="Сертификат 6" onerror="this.style.display='none';">
+        <div class="cert-label">Лидерство и профессиональный рост</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== QUIZ ========== -->
+<section id="quiz" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Диагностика</div>
+      <h2 class="section-title">Тест <span class="gold-grad">уровня энергии</span></h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--text-muted);font-size:14px;max-width:500px;margin:0 auto;">5 вопросов, которые покажут ваш реальный ресурс прямо сейчас</p>
+    </div>
+    <div class="quiz-wrap fade-in">
+      <div class="quiz-card">
+        <div id="quiz-questions">
+          <div class="quiz-progress-bar-wrap"><div class="quiz-progress-bar" id="quiz-bar" style="width:20%"></div></div>
+          <div class="quiz-q-label" id="quiz-q-num">Вопрос 1 из 5</div>
+          <div class="quiz-q-text" id="quiz-q-text"></div>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-nav">
+            <button class="quiz-btn-back" id="quiz-back" onclick="quizBack()" style="display:none">← Назад</button>
+            <button class="btn-primary" id="quiz-next" onclick="quizNext()">Далее →</button>
+          </div>
+        </div>
+        <div class="quiz-loader" id="quiz-loader">
+          <div class="quiz-loader-ring"></div>
+          <p style="color:var(--text-muted);font-size:14px;">Анализируем ваши ответы...</p>
+          <p style="color:var(--text-muted);font-size:12px;margin-top:8px;">Сканируем уровень энергии...</p>
+        </div>
+        <div class="quiz-result" id="quiz-result">
+          <div class="quiz-result-score" id="quiz-score">0</div>
+          <div class="quiz-result-label">из 20 баллов</div>
+          <div class="quiz-result-title" id="quiz-result-title"></div>
+          <div class="quiz-result-desc" id="quiz-result-desc"></div>
+          <div class="glass-gold" style="padding:20px;margin-bottom:24px;text-align:left;">
+            <p style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:8px;">💡 Слово от Натали:</p>
+            <p style="font-size:14px;color:var(--text-muted);line-height:1.7;" id="quiz-advice"></p>
+          </div>
+          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+            <a href="https://vk.com/pahlova" target="_blank" rel="noopener" class="btn-primary">🌟 Записаться на консультацию</a>
+            <button class="btn-outline" onclick="quizReset()">↺ Пройти тест заново</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXERCISES ========== -->
+<section id="exercises" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Методика</div>
+      <h2 class="section-title">8 ключевых <span class="gold-grad">упражнений</span></h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--text-muted);font-size:14px;">Нажмите на карточку, чтобы узнать подробности</p>
+    </div>
+    <div class="exercises-grid" id="exercises-grid"></div>
+    <div style="text-align:center;margin-top:50px;" class="fade-in">
+      <a href="https://vk.com/pahlova" target="_blank" rel="noopener" class="btn-primary">🚀 Начать тренировки с Натали</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GALLERY ========== -->
+<section id="gallery" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Фотогалерея</div>
+      <h2 class="section-title">Моменты <span class="gold-grad">жизни и творчества</span></h2>
+      <div class="gold-divider"></div>
+      <p style="color:var(--text-muted);font-size:14px;">Нажмите на фото, чтобы просмотреть и пролистать</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 0)">
+        <img src="img/3.jpg" alt="Галерея 1" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 1)">
+        <img src="img/4.jpg" alt="Галерея 2" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 2)">
+        <img src="img/5.jpg" alt="Галерея 3" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 3)">
+        <img src="img/6.jpg" alt="Галерея 4" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 4)">
+        <img src="img/7.jpg" alt="Галерея 5" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 5)">
+        <img src="img/8.jpg" alt="Галерея 6" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+      <div class="gallery-item fade-in" onclick="openSlider('gallery', 6)">
+        <img src="img/9.jpg" alt="Галерея 7" onerror="this.parentElement.style.background='#1a1a2e'">
+        <div class="gallery-overlay"><span>🔍</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== REVIEWS ========== -->
+<section id="reviews" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Отзывы</div>
+      <h2 class="section-title">Истории <span class="gold-grad">трансформации</span></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Я обратилась к Натали в момент, когда казалось, что сил больше нет совсем. После первых двух занятий почувствовала, как внутри что-то сдвинулось. Это сложно описать словами — как будто внутри зажёгся огонёк, который не гас долгие годы. Методика работает на глубинном уровне, туда, куда не добраться обычной психологией.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">🌸</div>
+          <div><div class="review-author-name">Марина Соколова</div><div class="review-author-role">Менеджер, Краснодар</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Я скептик по натуре, но друг настоял — попробуй. Результат меня просто поразил. Ушла фоновая тревога, которая была моим постоянным спутником. В бизнесе начали открываться двери, которые раньше казались закрытыми. Натали — это не просто тренер, это человек, который верит в вас больше, чем вы сами.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">💼</div>
+          <div><div class="review-author-name">Алексей Воронов</div><div class="review-author-role">Руководитель отдела, Москва</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Прошла через развод и потерю работы одновременно. Была в такой яме, что казалось — выбраться невозможно. Натали не просто помогла мне выбраться — она показала, что там, наверху, жизнь в сотни раз ярче и счастливее. Спустя 3 месяца я не узнаю себя — в хорошем смысле.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">🌺</div>
+          <div><div class="review-author-name">Ольга Светлова</div><div class="review-author-role">Дизайнер, Санкт-Петербург</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Занимаюсь онлайн из Германии. Очень удобно — никаких ограничений по географии. За два месяца работы с Натали наладились отношения с детьми, вернулась радость жизни. Картина маслом от Натали висит в моём кабинете — каждый день напоминает мне о состоянии гармонии.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">🌍</div>
+          <div><div class="review-author-name">Ирина Краузе</div><div class="review-author-role">Врач, Берлин</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Начала с теста на сайте — результаты меня встревожили. Записалась к Натали. И это было лучшее решение в моей жизни. Упражнения просты внешне, но работают на невероятной глубине. Я снова чувствую вкус к жизни, к творчеству, к общению. Мышление буквально перестроилось.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">✨</div>
+          <div><div class="review-author-name">Екатерина Малинина</div><div class="review-author-role">Педагог, Ростов-на-Дону</div></div>
+        </div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Я художница сама, поэтому особенно ценю, что Натали совмещает коучинг и искусство. Это две мощнейших силы, которые она умело направляет в помощь другим. После её тренировок моё творчество вышло на совершенно новый уровень. Появилось ощущение потока и вдохновения, которого не было годами.»</div>
+        <div class="review-author">
+          <div class="review-author-icon">🎨</div>
+          <div><div class="review-author-name">Юлия Артемьева</div><div class="review-author-role">Художник, Новосибирск</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BOOK ========== -->
+<section id="book" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Книга в подарок</div>
+      <h2 class="section-title">«Энергия важнее <span class="gold-grad">денег»</span></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="book-inner fade-in">
+      <div class="book-cover">
+        <img src="img/book.jpg" alt="Книга Энергия важнее денег" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="book-cover-placeholder" style="display:none;">
+          <span class="book-emoji">📖</span>
+          <div class="book-title-small">Энергия важнее денег</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="section-title" style="font-size:clamp(22px,3vw,36px);">«Энергия важнее денег» — <span class="gold">бесплатно</span></h3>
+        <p style="color:var(--text-muted);font-size:15px;line-height:1.75;margin-bottom:24px;">Эта книга — ваш первый шаг к трансформации. Написана простым языком и отвечает на главный вопрос: почему наша жизнь такая, какая есть, и как её изменить через работу с разумом и энергией.</p>
+        <ul class="book-list">
+          <li><span>🧠</span><span>Как работает сознание и почему мы повторяем одни и те же ошибки</span></li>
+          <li><span>⚡</span><span>Откуда берётся жизненная энергия и как восстановить её запасы</span></li>
+          <li><span>🎯</span><span>Первые упражнения Super Jump для самостоятельного начала</span></li>
+          <li><span>🌟</span><span>Реальные истории трансформации — от дна к процветанию</span></li>
+          <li><span>🚀</span><span>Как выйти на новый уровень жизни — шаг за шагом</span></li>
+        </ul>
+        <a href="https://t.me/+eouZRNQwruhkNWUy" target="_blank" rel="noopener" class="btn-primary">📖 Получить книгу бесплатно</a>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Через Telegram · Бесплатно</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LINKS ========== -->
+<section id="links" class="section-wrap">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:50px;">
+      <div class="section-badge">Контакты</div>
+      <h2 class="section-title">Все способы <span class="gold-grad">связи</span></h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="links-grid fade-in">
+      <a href="https://vk.com/pahlova" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">💙</div>
+        <div class="link-card-title">ВКонтакте (личная)</div>
+        <div class="link-card-desc">Личная страница Натали Павленко</div>
+      </a>
+      <a href="https://vk.ru/happiness_natali" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">🌟</div>
+        <div class="link-card-title">Группа ВКонтакте</div>
+        <div class="link-card-desc">Сообщество Натали — посты, вдохновение, практики</div>
+      </a>
+      <a href="https://t.me/n_p_it" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">✈️</div>
+        <div class="link-card-title">Telegram</div>
+        <div class="link-card-desc">@n_p_it — написать напрямую</div>
+      </a>
+      <a href="https://t.me/+eouZRNQwruhkNWUy" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">📖</div>
+        <div class="link-card-title">Книга в дар</div>
+        <div class="link-card-desc">«Энергия важнее денег» — бесплатно через Telegram</div>
+      </a>
+      <a href="https://max.ru/join/siiuFJ-2sfmlH2NVYxmRpbJn30tXI-uw17rHR2AJaPQ" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">🚀</div>
+        <div class="link-card-title">Клуб в Max</div>
+        <div class="link-card-desc">Клуб ресурсных людей в мессенджере Max</div>
+      </a>
+      <a href="tel:+79286636637" class="link-card">
+        <div class="link-card-icon">📞</div>
+        <div class="link-card-title">Телефон</div>
+        <div class="link-card-desc">+7 (928) 663-66-37 — позвонить</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="text-decoration:none;">
+          <div class="nav-logo-icon">SJ</div>
+          <div class="nav-logo-text">
+            <span>Super Jump</span>
+            <span>Натали Павленко</span>
+          </div>
+        </a>
+        <p>Интеллект-тренер и художник. Помогаю перезагрузить мышление и настроить жизнь на волну счастья, любви и процветания. Онлайн — из любой точки мира.</p>
+        <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
+          <a href="https://vk.com/pahlova" target="_blank" style="width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all 0.2s;" title="ВКонтакте">💙</a>
+          <a href="https://t.me/n_p_it" target="_blank" style="width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all 0.2s;" title="Telegram">✈️</a>
+          <a href="tel:+79286636637" style="width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all 0.2s;" title="Телефон">📞</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#about">О себе</a></li>
+          <li><a href="#certs">Сертификаты</a></li>
+          <li><a href="#quiz">Тест энергии</a></li>
+          <li><a href="#exercises">8 Упражнений</a></li>
+          <li><a href="#gallery">Фотогалерея</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="https://vk.com/pahlova" target="_blank" rel="noopener">Записаться</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+79286636637">+7 (928) 663-66-37</a></li>
+          <li><a href="https://vk.com/pahlova" target="_blank">ВКонтакте (личная)</a></li>
+          <li><a href="https://vk.ru/happiness_natali" target="_blank">Группа ВК</a></li>
+          <li><a href="https://t.me/n_p_it" target="_blank">Telegram @n_p_it</a></li>
+          <li><a href="https://max.ru/join/siiuFJ-2sfmlH2NVYxmRpbJn30tXI-uw17rHR2AJaPQ" target="_blank">Клуб в Max</a></li>
+          <li><a href="https://t.me/+eouZRNQwruhkNWUy" target="_blank">Книга в дар</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Натали Павленко · Интеллект-тренер Super Jump. Все права защищены.</p>
+      <p>Сделано с ❤️ и <span class="gold-grad" style="font-weight:700;">Энергией Любви</span></p>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+// ============ PARTICLES ============
+(function(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  for(let i=0;i<70;i++){
+    particles.push({
+      x: Math.random()*window.innerWidth,
+      y: Math.random()*window.innerHeight,
+      r: Math.random()*2+0.5,
+      dx: (Math.random()-0.5)*0.3,
+      dy: (Math.random()-0.5)*0.3,
+      alpha: Math.random()*0.5+0.1,
+      gold: Math.random() > 0.6
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = p.gold
+        ? `rgba(201,168,76,${p.alpha})`
+        : `rgba(150,130,200,${p.alpha*0.5})`;
+      ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if(p.x<0||p.x>W) p.dx*=-1;
+      if(p.y<0||p.y>H) p.dy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ============ NAVBAR ============
+window.addEventListener('scroll', ()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>50);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY>400);
+});
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// ============ FADE IN ============
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+}, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+// ============ LIGHTBOX WITH SLIDER ============
+const sliderSets = {
+  certs: [
+    'img/cert-1.jpg',
+    'img/cert-2.jpg',
+    'img/cert-3.jpg',
+    'img/cert-4.jpg',
+    'img/cert-5.jpg',
+    'img/cert-6.jpg'
+  ],
+  gallery: [
+    'img/3.jpg',
+    'img/4.jpg',
+    'img/5.jpg',
+    'img/6.jpg',
+    'img/7.jpg',
+    'img/8.jpg',
+    'img/9.jpg'
+  ]
+};
+
+let currentSet = [];
+let currentIdx = 0;
+
+function openSlider(setName, idx) {
+  currentSet = sliderSets[setName];
+  currentIdx = idx;
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function showLightboxImage() {
+  const img = document.getElementById('lightbox-img');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = currentSet[currentIdx];
+    img.style.opacity = '1';
+  }, 150);
+  document.getElementById('lightbox-counter').textContent = (currentIdx + 1) + ' / ' + currentSet.length;
+}
+
+function lightboxPrev() {
+  currentIdx = (currentIdx - 1 + currentSet.length) % currentSet.length;
+  showLightboxImage();
+}
+
+function lightboxNext() {
+  currentIdx = (currentIdx + 1) % currentSet.length;
+  showLightboxImage();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lightboxBgClick(e) {
+  if (e.target === document.getElementById('lightbox')) {
+    closeLightbox();
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxPrev();
+  if (e.key === 'ArrowRight') lightboxNext();
+});
+
+// Swipe support for mobile
+(function(){
+  let startX = 0;
+  const lb = document.getElementById('lightbox');
+  lb.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) lightboxNext();
+      else lightboxPrev();
+    }
+  }, {passive:true});
+})();
+
+// ============ QUIZ ============
+const quizData = [
+  {
+    q: "Как вы чувствуете себя по утрам в первые 30 минут после пробуждения?",
+    opts: [
+      {e:"🟢", t:"Полон сил! Легко встаю без будильника и готов действовать.", s:4},
+      {e:"🟡", t:"Вполне нормально, но нужно время и кофе, чтобы раскачаться.", s:3},
+      {e:"🟠", t:"Уже просыпаюсь уставшим, встаю с трудом.", s:2},
+      {e:"🔴", t:"Абсолютное бессилие, буквально заставляю себя подняться.", s:1}
+    ]
+  },
+  {
+    q: "Насколько легко вам удаётся удерживать концентрацию на делах?",
+    opts: [
+      {e:"🟢", t:"Отлично концентрируюсь часами, нахожусь в потоке.", s:4},
+      {e:"🟡", t:"Концентрируюсь, но часто отвлекаюсь на соцсети.", s:3},
+      {e:"🟠", t:"Постоянно откладываю, мысли хаотично блуждают.", s:2},
+      {e:"🔴", t:"Не могу сосредоточиться даже на 10 минут.", s:1}
+    ]
+  },
+  {
+    q: "Как вы реагируете на стресс и неожиданные трудности?",
+    opts: [
+      {e:"🟢", t:"Хладнокровно анализирую и сразу нахожу решение.", s:4},
+      {e:"🟡", t:"Немного волнуюсь, но быстро беру эмоции под контроль.", s:3},
+      {e:"🟠", t:"Долго прокручиваю проблемы, чувствую опустошение.", s:2},
+      {e:"🔴", t:"Впадаю в панику или полную апатию, руки опускаются.", s:1}
+    ]
+  },
+  {
+    q: "Каков уровень ваших сил к концу рабочего дня?",
+    opts: [
+      {e:"🟢", t:"Полон сил! Хватает на спорт, хобби и общение с близкими.", s:4},
+      {e:"🟡", t:"Лёгкая усталость, готов к спокойному отдыху.", s:3},
+      {e:"🟠", t:"Выжат. Хватает сил только лежать на диване.", s:2},
+      {e:"🔴", t:"Критически нет сил, всё тело ноет.", s:1}
+    ]
+  },
+  {
+    q: "Что вы испытываете, когда думаете о своём будущем и целях?",
+    opts: [
+      {e:"🟢", t:"Азарт и вдохновение! Чётко знаю, чего хочу.", s:4},
+      {e:"🟡", t:"Интерес, но мешают внутренние страхи.", s:3},
+      {e:"🟠", t:"Плыву по течению, не могу определиться с желаниями.", s:2},
+      {e:"🔴", t:"Апатия. Нет ресурсов даже мечтать.", s:1}
+    ]
+  }
+];
+
+let currentQ = 0, answers = [], selectedIdx = -1;
+
+function renderQuiz(){
+  const q = quizData[currentQ];
+  document.getElementById('quiz-q-num').textContent = `Вопрос ${currentQ+1} из ${quizData.length}`;
+  document.getElementById('quiz-q-text').textContent = q.q;
+  document.getElementById('quiz-bar').style.width = `${((currentQ+1)/quizData.length)*100}%`;
+  document.getElementById('quiz-back').style.display = currentQ>0?'block':'none';
+  const container = document.getElementById('quiz-options');
+  container.innerHTML = '';
+  q.opts.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className = 'quiz-option' + (answers[currentQ]===i?' selected':'');
+    div.innerHTML = `<span class="quiz-option-emoji">${opt.e}</span><span>${opt.t}</span>`;
+    div.onclick = ()=>{
+      document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedIdx = i;
+    };
+    container.appendChild(div);
+  });
+  selectedIdx = answers[currentQ] !== undefined ? answers[currentQ] : -1;
+  const nextBtn = document.getElementById('quiz-next');
+  nextBtn.textContent = currentQ === quizData.length-1 ? 'Узнать результат ✨' : 'Далее →';
+}
+
+function quizNext(){
+  if(selectedIdx === -1){ alert('Пожалуйста, выберите ответ!'); return; }
+  answers[currentQ] = selectedIdx;
+  if(currentQ < quizData.length-1){
+    currentQ++;
+    selectedIdx = answers[currentQ] !== undefined ? answers[currentQ] : -1;
+    renderQuiz();
+  } else {
+    showQuizResult();
+  }
+}
+
+function quizBack(){
+  if(currentQ>0){
+    answers[currentQ] = selectedIdx;
+    currentQ--;
+    selectedIdx = answers[currentQ] !== undefined ? answers[currentQ] : -1;
+    renderQuiz();
+  }
+}
+
+function showQuizResult(){
+  document.getElementById('quiz-questions').style.display='none';
+  document.getElementById('quiz-loader').style.display='block';
+  setTimeout(()=>{
+    document.getElementById('quiz-loader').style.display='none';
+    const score = answers.reduce((sum,aIdx,qIdx)=> sum + quizData[qIdx].opts[aIdx].s, 0);
+    let title, desc, advice;
+    if(score>=17){
+      title="🌟 Высокий уровень энергии!";
+      desc="Ваша внутренняя батарейка заряжена на полную. Вы живёте в потоке, умеете восстанавливаться и сохранять ресурс. Продолжайте развиваться — результаты будут расти!";
+      advice="Вы в отличном состоянии! Интеллектуальные тренировки помогут вам выйти на ещё более высокий уровень и стать проводником для других. Буду рада познакомиться!";
+    } else if(score>=12){
+      title="💛 Средний уровень энергии";
+      desc="Ресурс есть, но он нестабилен. Бывают подъёмы и спады. Есть потенциал для роста — и тренировки помогут раскрыть его полностью.";
+      advice="Вы на верном пути, но есть куда расти. Именно на этом уровне интеллектуальные тренировки дают самый заметный результат. Давайте поработаем вместе!";
+    } else if(score>=7){
+      title="🟠 Уровень ниже нормы";
+      desc="Энергии не хватает. Усталость стала привычным фоном. Важно разобраться с причинами и начать восстановление — это реально и быстрее, чем кажется.";
+      advice="Я очень хорошо понимаю это состояние — я сама через него прошла. Поверьте: выход есть. И он ближе, чем вы думаете. Напишите мне — мы начнём вместе.";
+    } else {
+      title="🔴 Критически низкий уровень";
+      desc="Вы работаете на пределе или за ним. Тело и разум сигнализируют: нужна помощь. Это не слабость — это сигнал к действию. Первый шаг — самый важный.";
+      advice="Дорогой человек, я была там, где вы сейчас. На самом дне. И я знаю: это не конец — это начало. Свяжитесь со мной прямо сейчас. Я буду рядом.";
+    }
+    document.getElementById('quiz-score').textContent = score;
+    document.getElementById('quiz-result-title').textContent = title;
+    document.getElementById('quiz-result-desc').textContent = desc;
+    document.getElementById('quiz-advice').textContent = advice;
+    document.getElementById('quiz-result').style.display='block';
+  }, 2200);
+}
+
+function quizReset(){
+  currentQ=0; answers=[]; selectedIdx=-1;
+  document.getElementById('quiz-loader').style.display='none';
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-questions').style.display='block';
+  renderQuiz();
+}
+
+renderQuiz();
+
+// ============ EXERCISES ============
+const exercises = [
+  {n:"01", e:"😊", title:"200 Улыбок", sub:"Генератор эндорфинов", back_title:"Гимнастика «200 Улыбок»", back_desc:"Физиологическая стимуляция выработки гормонов радости через особые мышечные паттерны лица.", items:["Снятие стресса за 5 минут","Укрепление иммунной системы","Высокий тонус на весь день"]},
+  {n:"02", e:"🧷", title:"Резинка", sub:"Гигиена мыслей", back_title:"Мысли под замком", back_desc:"Уникальный инструмент мгновенной остановки навязчивых негативных монологов в голове.", items:["Избавление от фоновой тревоги","Фокус на важных возможностях","Ясный и свободный ум"]},
+  {n:"03", e:"👑", title:"Осанка Короля", sub:"Телесная уверенность", back_title:"Психосоматика силы", back_desc:"Изменение осанки влияет на гормональный фон: снижает кортизол и повышает тестостерон.", items:["Обретение лидерской харизмы","Уверенность на переговорах","Высокое самоощущение лидера"]},
+  {n:"04", e:"💧", title:"Будь Здоров!", sub:"Подъём энергии", back_title:"Закаливание ума и тела", back_desc:"Экологичная методика взаимодействия с водой для удаления блоков и пробуждения клеток.", items:["Снятие синдрома усталости","Взрывной подъём продуктивности","Очищение энергоканалов"]},
+  {n:"05", e:"🎭", title:"Контроль чувств", sub:"Эмоциональный интеллект", back_title:"Владыка эмоций", back_desc:"Управление разрушительными реакциями гнева, обиды и зависти до того, как они заберут ваши силы.", items:["Сохранение ресурса при спорах","Гармония в отношениях","Железное хладнокровие"]},
+  {n:"06", e:"🎧", title:"Аудиотренинг", sub:"Прошивка ума", back_title:"Диалог с подсознанием", back_desc:"Персональные аффирмации для стирания старых убеждений и программирования на успех.", items:["Быстрое достижение целей","Повышение уверенности в разы","Запуск мышления изобилия"]},
+  {n:"07", e:"🛡️", title:"Инфо-Фильтр", sub:"Защита разума", back_title:"Информационная диета", back_desc:"Защита ментального здоровья от токсичного контента, слухов и чужого пессимизма.", items:["Экономия до 3-х часов в день","Фокус на созидании","Ясное видение своей жизни"]},
+  {n:"08", e:"🚀", title:"Сверхцель", sub:"Предназначение", back_title:"Раскрытие миссии", back_desc:"Осознание глобального смысла своего существования — главный вечный двигатель мотивации.", items:["Выход из кризиса смыслов","Желание созидать великое","Масштабный рост во всех сферах"]}
+];
+
+const grid = document.getElementById('exercises-grid');
+exercises.forEach(ex=>{
+  const card = document.createElement('div');
+  card.className = 'ex-card';
+  card.innerHTML = `
+    <div class="ex-card-inner">
+      <div class="ex-front">
+        <div class="ex-num">${ex.n}</div>
+        <div class="ex-emoji">${ex.e}</div>
+        <div class="ex-title">${ex.title}</div>
+        <div class="ex-sub">${ex.sub}</div>
+        <div class="ex-hint">Нажмите, чтобы узнать больше</div>
+      </div>
+      <div class="ex-back">
+        <h4>${ex.back_title}</h4>
+        <p>${ex.back_desc}</p>
+        <ul>${ex.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+        <div class="ex-back-hint">← Нажмите, чтобы вернуться</div>
+      </div>
+    </div>
+  `;
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
